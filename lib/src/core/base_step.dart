@@ -1,6 +1,5 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:easy_stepper/src/core/easy_border.dart';
-import 'package:lottie/lottie.dart';
 
 /// Callback is fired when a step is reached.
 typedef OnStepReached = void Function(int index);
@@ -129,13 +128,9 @@ class BaseStep extends StatelessWidget {
                           dashPattern: borderType == BorderType.normal
                               ? [1, 0]
                               : dashPattern,
-                          child: isActive && showLoadingAnimation
-                              ? _buildLoadingIcon()
-                              : _buildIcon(context),
+                          child: _buildIcon(context),
                         )
-                      : isActive && showLoadingAnimation
-                          ? _buildLoadingIcon()
-                          : _buildIcon(context),
+                      :  _buildIcon(context),
                 ),
               ),
             ),
@@ -252,19 +247,4 @@ class BaseStep extends StatelessWidget {
     );
   }
 
-  Center _buildLoadingIcon() {
-    return Center(
-      child: Lottie.asset(
-        lottieAnimation ??
-            (((activeStepBackgroundColor != null &&
-                        activeStepBackgroundColor!.computeLuminance() < 0.35) &&
-                    activeStepBackgroundColor != Colors.transparent)
-                ? "packages/easy_stepper/assets/loading_white.json"
-                : "packages/easy_stepper/assets/loading_black.json"),
-        width: radius * 1.6,
-        height: radius * 1.6,
-        fit: BoxFit.contain,
-      ),
-    );
-  }
 }
